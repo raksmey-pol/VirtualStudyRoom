@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if page == 'login' %}
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+<link rel="stylesheet" href="static/styles/main.css">
+<style>
+    .invisible_hr {
+        border: none;
+    }
+    .outer_user_form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 75vh;
+    }
+    .user_form {
+    color: aliceblue;
+    padding: 70px 70px 70px ;
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    }
+
+    
+</style>
+<div class="outer_user_form">
+    <div class="user_form">
+        <form method="POST", action="">
+            {% csrf_token %}
+
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Enter Username">
+            <hr class="invisible_hr">
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Enter Password">
+            <input type="submit" value="Login">
+        </form>
+        <p>Haven't Signed Up Yet?</p>
+        <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

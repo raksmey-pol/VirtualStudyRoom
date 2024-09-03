@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+
+<link rel="stylesheet" href="static/style/main.css">
+
+<style>
+.outer_reg_form {
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
+}
+
+.reg_form {
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 70px 70px 70px ;
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    }
+
+.reg_form    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+.reg_form    label {
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+.reg_form    input[type="text"],
+.reg_form    input[type="password"] {
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+.reg_form    input[type="submit"] {
+        background-color: gray;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+.reg_form input[type="submit"]:hover{
+    background-color: darkgray;
+}
+
+.reg_form    hr.invisible_hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 8px 0;
+    }
+
+.reg_form    p {
+        margin-top: 16px;
+        margin-bottom: 8px;
+    }
+
+.reg_form    a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+.reg_form a:hover{
+    color: red;
+}
+</style>
+<div class="outer_reg_form">
+    <div class="reg_form">
+        <form method="POST", action="">
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+            <input type="submit" value="Register">
+        </form>
+        <p>Already Signed Up?</p>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+
+{% endblock content %}

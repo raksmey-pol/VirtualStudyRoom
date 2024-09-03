@@ -1,0 +1,154 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="static/styles/main.css">
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+<style>
+
+    .home_cont{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+    #create_room{
+    color: white;
+    padding-bottom: 10px;
+    }
+
+    .createroom{
+        margin-right: 45vw;
+        margin-top: 15px;
+    }
+    .home_cont{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+
+#Topics{
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding-bottom: 5px;
+} 
+
+.to_do{
+    color: aliceblue;
+    padding: 3px 10px 0px;
+    border: 3px solid white;
+    margin-top: 20px;
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+
+}
+
+#to_do_list {
+    text-align: center;
+}
+.topic_cont{
+    text-align: center;
+    color: aliceblue;
+    padding: 3px 10px 5px;
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+#Topics{
+    color: aliceblue;
+
+}
+.edit_button{
+    color: red;
+}
+a:hover {
+    color: black;
+    background: rgba(255, 255, 255, 0.29);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.2px);
+    -webkit-backdrop-filter: blur(11.2px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    padding: 2px 5px 2px;
+}
+</style>
+
+
+<div class="home_cont">
+
+    <div class="topic_cont">
+        <h3 class="white_alink" id="Topics">Topics</h3>
+        <div>
+            <a href="{% url 'home' %}" class="white_alink" class="topic_name">All</a>
+        </div>
+        {% for topic in topics %}
+            <div>
+                <a href="{% url 'home' %}?q={{topic.name}}" class="white_alink" class="topic_name">{{topic.name}}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="room_cont_home">
+
+    <div class="rooms">
+        <div class="createroom">
+        <a href="{% url 'create_room' %}" class="white_alink" id="create_room"><h2>Create Room</h4></a>
+        </div>
+        <hr>
+    <div >
+        {% for room in rooms %}
+
+        <div class="room_all">
+           <div id="ed_de_ho">
+            {% if request.user == room.host %}
+            <div id="edit">
+            <a href="{% url 'update_room' room.id %}" class="edit-button">Edit</a>
+            </div>
+            <div id="delete">
+            <a href="{% url 'delete_room' room.id %}" class="delete-button">Delete</a>
+            </div>
+            {% endif %}
+            <div id="user_room">
+                <span>@{{room.host.username}}</span>
+            </div>
+           </div>
+            <h2>>>>  <a href="{% url 'room' room.id %}" class="white_alink">{{room.name}} </a></h2>
+            <small>{{room.topic.name}}</small>
+            <hr>
+        </div>
+
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+    <div class="to_do">
+        <div class="task_wrapper">
+        <div id="to_do_list"><h3>TO-DO LISTS</h3></div>
+        {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'add_todo' %}" class="input_task">
+            {% csrf_token %}
+            <input type="text" name="task" placeholder="New task..." class="new_tasks">
+            <button type="submit" id="task_button">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.title }}
+                    <form method="post" action="{% url 'delete_todo' task.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}

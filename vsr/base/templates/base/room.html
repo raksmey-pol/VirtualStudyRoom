@@ -1,0 +1,127 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+
+    .room_all_cont{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+
+    }
+    .room_msg{
+    color: aliceblue;
+}
+.room_cont{
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+}
+
+.room_cont{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+.outer_comm_cont{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.edit-button{
+    color: red;
+}
+.edit-button{
+    color: blue;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.delete-button{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: red;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+    .comm_input form {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .comm_input input[type="text"] {
+        padding: 10px;
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        font-size: 16px;
+    }
+
+    .comm_input input[type="text"]::placeholder {
+        color: aliceblue;
+    }
+
+    .comm_input input[type="text"]:focus {
+        outline: none;
+        border-color: black; /* Change the border color on focus */
+    }
+</style>
+        <link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+<div class="room_all_cont">
+<div></div>
+<div class="room_cont">
+<h1 class="room_msg">{{room.name}}</h1>
+
+<p class="room_msg">{{room.descr}}</p>
+
+<div class="convo-cont" class="room_msg">
+    <h3 class="room_msg">Conversations</h3>
+    <hr>
+
+    {% for message in room_messages %}
+    <div>
+        {% if request.user == message.user %}
+        <a href="{% url 'delete_msg' message.id %}" class="delete-button">Delete</a>
+        <a href="{% url 'update_msg' message.id %}" class="edit-button">Edit</a>
+        {% endif %}
+        <small class="room_msg">@{{message.user}}  {{message.created|timesince}} ago</small>
+        <p class="room_msg">{{message}}</p>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+
+{% if request.user.is_authenticated %}
+<div class="outer_comm_cont">
+    <div class="comm_input">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="Message...">
+        </form>
+    </div>
+</div>
+</div>
+<div></div>
+</div>
+{% endif %}
+
+
+{% endblock content %}

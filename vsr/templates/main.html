@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Virtual Chat Room</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="static/styles/main.css">
+        <link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+        <style>
+            body {
+                background-image: url("{% static 'styles/bg.jpg' %}");
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-attachment: fixed;
+            }
+        </style>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% block content %}
+
+
+        {% endblock %}
+
+        <!-- <img src="C:\Users\User\Downloads\Pin by RUIHUA FAN on 场景 _ Desktop wallpaper art, Cute desktop wallpaper, Landscape wallpaper.jpg" alt=""> -->
+
+
+        <!-- <script src="" async defer></script> -->
+    </body>
+</html>

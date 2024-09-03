@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .delete_form {
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+    .inner_delete_form{
+    font-size: 30px;
+    padding: 0px 10px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    }
+</style>
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+<div class="delete_form">
+    <div class="inner_delete_form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{object}}"?</p>
+            <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+            <input type="submit" value="Confirm">
+        </form>
+    </div>
+</div>
+{% endblock content %}

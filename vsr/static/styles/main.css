@@ -1,0 +1,21 @@
+.room_cont_home {
+    background: rgba(100, 100, 100, 0.21);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.2px);
+    -webkit-backdrop-filter: blur(7.2px);
+}
+
+.room_cont_home{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.room_all {
+    color: aliceblue;
+}
+
+a {
+    color: aliceblue;
+    text-decoration: none;
+}

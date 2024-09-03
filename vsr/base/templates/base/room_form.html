@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+
+<style>
+    .room_form{
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;    
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px)
+    }
+
+    .room_form {
+        max-width: 400px; 
+        margin: auto;     
+        padding: 20px;     
+    }
+
+
+    .room_form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 8px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .room_form input[type="text"], textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px; 
+        box-sizing: border-box;
+    }
+
+    .room_form input[type="submit"] {
+        font-family: 'Courier New', Courier, monospace;
+        color: white;              
+        padding: 10px 15px;        
+        border: none;              
+        border-radius: 4px;        
+        cursor: pointer;          
+    }
+
+    .room_form input[type="submit"] {
+        background: rgba(207, 207, 207, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(6.7px);
+        -webkit-backdrop-filter: blur(6.7px);
+        border: 1px solid rgba(207, 207, 207, 0.3);
+    }
+    .room_form input[type="submit"]:hover {
+        background: rgba(103, 101, 101, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.7px);
+    -webkit-backdrop-filter: blur(6.7px);
+    border: 1px solid rgba(103, 101, 101, 0.11);
+    }
+</style>
+
+
+<div class="room_form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+
+{% endblock content %}

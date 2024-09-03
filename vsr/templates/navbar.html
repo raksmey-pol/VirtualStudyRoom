@@ -1,0 +1,102 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+.logo a:link{
+    text-decoration: None;
+    font-family: Nova Square;
+    font-size: 30px;
+    transition: 0.3s;
+}
+.logo a:hover {
+    color:rgb(176, 176, 176);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.nav_cont {
+    display: grid;
+    grid-template-columns:  2fr 2fr 1fr;
+}
+.logo {
+    color: aliceblue;
+}
+.user_interface {
+    color: aliceblue;
+    /* margin-left: 25%; */
+}
+
+.search_bar {
+    padding-top: 5px;
+    padding-right: 20px;
+}
+
+.search_bar input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        box-sizing: border-box;
+        font-size: 14px;
+        width: 300px; }
+
+.search_bar input[type="text"]:focus {
+        outline: 5px;
+        border-color: black; }
+.user_incase{
+    border: 1px solid white;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 1px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.in_out a:link {
+    margin-left : 50%;
+    margin-left: 40%;
+    padding: 3px 9px 3px;
+    border: 3px solid white;
+    border-radius: 10px;
+}
+.in_out a:hover{
+    color: rgb(0, 0, 0);
+    border: 3px solid rgb(211, 209, 209);;
+    background-color: rgb(211, 209, 209);
+}
+</style>
+<link rel="icon" type="image/x-icon" href="static/styles/favicon.ico">
+<link rel="stylesheet" href="static/styles/main.css">
+<div class="nav_cont">
+    <div class="logo">    
+        <a href="/" class="logo">
+            ㅤVirtual Study Roomㅤ
+        </a>
+    </div>
+    {% if page != 'login' and page != 'register' %}
+    <div class="search_bar">
+        <form action="{% url 'home' %}" method="GET"><input type="text" name="q" placeholder="Search..."></form>
+    </div>
+    {% endif %}
+    <div class="user_interface">
+        {% if page != 'login' and page != 'register' %}
+        <div>
+            <h2 class="user_incase">@{{request.user}}</h2>
+        </div>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <div>
+            <p class="user_incase">Hello "{{request.user}}"</p>
+        </div>
+        <div class="in_out">
+        <a href="{% url 'logout' %}" class="user_interface">Logout</a>
+        </div>
+        {% else %}
+        {% if page != 'login' and page != 'register' %}
+        <div class="in_out">
+        <a href="{% url 'login' %}" class="user_interface">Login</a>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    <!-- <hr>  -->
+</div>
